@@ -31,27 +31,20 @@
     });
   </script>
   
-  
- 
-   <form id="searchForm2">
-    <label>Username:</label>
-    <input type="text" id="username" />
-    <button type="submit">Search</button>
-  </form>
 
   <h2>Results</h2>
-  <pre id="results2"></pre>
+  <pre id="results"></pre>
 
   <script>
-    const form = document.getElementById("searchForm2");
-    const results = document.getElementById("results2");
+    const form = document.getElementById("searchForm");
+    const results = document.getElementById("results");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const username = document.getElementById("username").value;
 
-      const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
+      const response = await fetch(`/api2/search?username=${encodeURIComponent(username)}`);
       const data = await response.json();
 
       results.textContent = JSON.stringify(data, null, 2);
