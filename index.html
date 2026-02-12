@@ -57,12 +57,12 @@
 
     document.getElementById("searchForm1").addEventListener("submit", function(e) {
       e.preventDefault();
-      performSearch("/api-vuln/search", "username1", "results1");
+      performSearch("/api/search", "username1", "results1");
     });
 
     document.getElementById("searchForm2").addEventListener("submit", function(e) {
       e.preventDefault();
-      performSearch("/api-secure/search", "username2", "results2");
+      performSearch("/api2/search", "username2", "results2");
     });
   </script>
 </body>
