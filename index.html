@@ -6,61 +6,60 @@
 <body>
   <h1>SafeSaaS User Lookup</h1>
 
+  <!-- Search Form 1 -->
+  <h2>Search User (Field 1)</h2>
   <form id="searchForm1">
     <label>Username:</label>
-    <input type="text" id="username" />
+    <input type="text" id="username1" />
     <button type="submit">Search</button>
   </form>
 
-  <h2>Results</h2>
+  <h3>Results 1</h3>
   <pre id="results1"></pre>
 
-  <script>
-    const form = document.getElementById("searchForm1");
-    const results = document.getElementById("results1");
+  <hr />
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const username = document.getElementById("username").value;
-
-      const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
-      const data = await response.json();
-
-      results.textContent = JSON.stringify(data, null, 2);
-    });
-  </script>
-  
-  
-    <h1>SafeSaaS User Lookup</h1>
-
+  <!-- Search Form 2 -->
+  <h2>Search User (Field 2)</h2>
   <form id="searchForm2">
     <label>Username:</label>
-    <input type="text" id="username" />
+    <input type="text" id="username2" />
     <button type="submit">Search</button>
   </form>
 
-  <h2>Results</h2>
+  <h3>Results 2</h3>
   <pre id="results2"></pre>
 
   <script>
-    const form = document.getElementById("searchForm2");
-    const results = document.getElementById("results2");
+    async function performSearch(usernameInputId, resultsId) {
+      const username = document.getElementById(usernameInputId).value;
+      const results = document.getElementById(resultsId);
 
-    form.addEventListener("submit", async (e) => {
+      try {
+        const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
+        
+        if (!response.ok) {
+          results.textContent = `Error: ${response.status}`;
+          return;
+        }
+
+        const data = await response.json();
+        results.textContent = JSON.stringify(data, null, 2);
+
+      } catch (err) {
+        results.textContent = "Request failed.";
+      }
+    }
+
+    document.getElementById("searchForm1").addEventListener("submit", function(e) {
       e.preventDefault();
+      performSearch("username1", "results1");
+    });
 
-      const username = document.getElementById("username").value;
-
-      const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
-      const data = await response.json();
-
-      results.textContent = JSON.stringify(data, null, 2);
+    document.getElementById("searchForm2").addEventListener("submit", function(e) {
+      e.preventDefault();
+      performSearch("username2", "results2");
     });
   </script>
-
-  
-  
-  
 </body>
 </html>
