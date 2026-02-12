@@ -6,24 +6,18 @@
 <body>
   <h1>SafeSaaS User Lookup</h1>
 
-  <form id="searchForm1">
+  <form id="searchForm">
     <label>Username:</label>
     <input type="text" id="username" />
     <button type="submit">Search</button>
   </form>
 
-  <form id="searchForm2">
-    <label>Username:</label>
-    <input type="text" id="username" />
-    <button type="submit">Search</button>
-  </form>
-
-  <h2>Results1</h2>
-  <pre id="results1"></pre>
+  <h2>Results</h2>
+  <pre id="results"></pre>
 
   <script>
-    const form = document.getElementById("searchForm1");
-    const results = document.getElementById("results1");
+    const form = document.getElementById("searchForm");
+    const results = document.getElementById("results");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -37,13 +31,21 @@
     });
   </script>
   
+  
+    <h1>SafeSaaS User Lookup</h1>
 
-  <h2>Results22</h2>
+  <form id="searchForm">
+    <label>Username:</label>
+    <input type="text" id="username" />
+    <button type="submit">Search</button>
+  </form>
+
+  <h2>Results</h2>
   <pre id="results"></pre>
 
   <script>
-    const form = document.getElementById("searchForm2");
-    const results = document.getElementById("results1");
+    const form = document.getElementById("searchForm");
+    const results = document.getElementById("results");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -53,12 +55,10 @@
       const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
       const data = await response.json();
 
-      results1.textContent = JSON.stringify(data, null, 2);
+      results.textContent = JSON.stringify(data, null, 2);
     });
   </script>
 
- 
- 
   
   
   
