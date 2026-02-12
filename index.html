@@ -51,7 +51,7 @@
 
       const username = document.getElementById("username").value;
 
-      const response = await fetch(`/api2/search?username=${encodeURIComponent(username)}`);
+      const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
       const data = await response.json();
 
       results.textContent = JSON.stringify(data, null, 2);
