@@ -38,12 +38,12 @@
   </script>
   
 
-  <h2>Results2</h2>
+  <h2>Results22</h2>
   <pre id="results"></pre>
 
   <script>
     const form = document.getElementById("searchForm2");
-    const results = document.getElementById("results");
+    const results = document.getElementById("results1");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -53,7 +53,7 @@
       const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
       const data = await response.json();
 
-      results.textContent = JSON.stringify(data, null, 2);
+      results1.textContent = JSON.stringify(data, null, 2);
     });
   </script>
 
