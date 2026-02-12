@@ -1,43 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SafeSaaS User Lookup</title>
+  <title>SafeSaaS Security Demo</title>
 </head>
 <body>
-  <h1>SafeSaaS User Lookup</h1>
+  <h1>SafeSaaS Security Comparison Demo</h1>
 
-  <!-- Search Form 1 -->
-  <h2>Search User (Field 1)</h2>
+  <!-- Vulnerable Search -->
+  <h2>Search User (Vulnerable Backend)</h2>
   <form id="searchForm1">
     <label>Username:</label>
     <input type="text" id="username1" />
     <button type="submit">Search</button>
   </form>
 
-  <h3>Results 1</h3>
+  <h3>Results (Vulnerable)</h3>
   <pre id="results1"></pre>
 
   <hr />
 
-  <!-- Search Form 2 -->
-  <h2>Search User (Field 2)</h2>
+  <!-- Secure Search -->
+  <h2>Search User (Secure Backend - Parameterized)</h2>
   <form id="searchForm2">
     <label>Username:</label>
     <input type="text" id="username2" />
     <button type="submit">Search</button>
   </form>
 
-  <h3>Results 2</h3>
+  <h3>Results (Secure)</h3>
   <pre id="results2"></pre>
 
   <script>
-    async function performSearch(usernameInputId, resultsId) {
+    async function performSearch(endpoint, usernameInputId, resultsId) {
       const username = document.getElementById(usernameInputId).value;
       const results = document.getElementById(resultsId);
 
+      results.textContent = "Loading...";
+
       try {
-        const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
-        
+        const response = await fetch(
+          `${endpoint}?username=${encodeURIComponent(username)}`
+        );
+
         if (!response.ok) {
           results.textContent = `Error: ${response.status}`;
           return;
@@ -53,12 +57,12 @@
 
     document.getElementById("searchForm1").addEventListener("submit", function(e) {
       e.preventDefault();
-      performSearch("username1", "results1");
+      performSearch("/api-vuln/search", "username1", "results1");
     });
 
     document.getElementById("searchForm2").addEventListener("submit", function(e) {
       e.preventDefault();
-      performSearch("username2", "results2");
+      performSearch("/api-secure/search", "username2", "results2");
     });
   </script>
 </body>
