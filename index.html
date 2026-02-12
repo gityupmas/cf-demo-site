@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demo SaaS App</title>
+  <title>SafeSaaS User Lookup</title>
 </head>
 <body>
-  <h1>Welcome to Acme SaaS</h1>
+  <h1>SafeSaaS User Lookup</h1>
 
-  <h2>Login</h2>
-  <form action="/login" method="GET">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Login</button>
-  </form>
-
-  <h2>Search</h2>
-  <form action="/search" method="GET">
-    <input type="text" name="query" placeholder="Search products">
+  <form id="searchForm">
+    <label>Username:</label>
+    <input type="text" id="username" />
     <button type="submit">Search</button>
   </form>
 
+  <h2>Results</h2>
+  <pre id="results"></pre>
+
+  <script>
+    const form = document.getElementById("searchForm");
+    const results = document.getElementById("results");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+
+      const response = await fetch(`/api/search?username=${encodeURIComponent(username)}`);
+      const data = await response.json();
+
+      results.textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
 </body>
 </html>
