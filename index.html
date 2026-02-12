@@ -65,5 +65,36 @@
       performSearch("/api2/search", "username2", "results2");
     });
   </script>
+  
+  <hr />
+<h2>XSS Demo</h2>
+
+<label>Enter Comment:</label>
+<input type="text" id="commentInput" />
+<button onclick="renderComment()">Submit</button>
+
+<h3>Rendered with innerHTML (Vulnerable)</h3>
+<div id="vulnOutput" style="border:1px solid black; padding:10px;"></div>
+
+<h3>Rendered with textContent (Safe)</h3>
+<div id="safeOutput" style="border:1px solid black; padding:10px;"></div>
+
+<script>
+function renderComment() {
+  const input = document.getElementById("commentInput").value;
+
+  // ❌ Vulnerable
+  document.getElementById("vulnOutput").innerHTML = input;
+
+  // ✅ Safe
+  document.getElementById("safeOutput").textContent = input;
+}
+</script>
+
+  
+  
+  
+  
+  
 </body>
 </html>
